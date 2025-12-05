@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>微博登录演示</title>
+    <!-- 引入微博 JS SDK（必须） -->
+    <script src="https://tjs.sjs.sinajs.cn/open/api/js/wb.js" charset="utf-8"></script>
+</head>
+<body>
+    <h2>微博登录示例</h2>
+
+    <!-- 微博登录按钮（wb:login-button） -->
+    <wb:login-button
+        type="3,2"
+        onlogin="loginCallback()"
+        onlogout="logoutCallback()">
+    </wb:login-button>
+
+    <script>
+        // 登录成功后会回调此函数，页面会收到 ?code=xxxx 参数
+        function loginCallback() {
+            // 这里可以把 code 通过 Ajax 发送到后端，后端再换取 access_token
+            // 示例：window.location.href = '/weibo/callback.html?code=' + getQuery('code');
+            console.log('微博登录成功');
+        }
+
+        function logoutCallback() {
+            console.log('已退出微博登录');
+        }
+
+        // 简单的查询字符串解析（可选）
+        function getQuery(name) {
+            const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+            const r = window.location.search.substr(1).match(reg);
+            return r ? decodeURIComponent(r[2]) : null;
+        }
+    </script>
+</body>
+</html>
